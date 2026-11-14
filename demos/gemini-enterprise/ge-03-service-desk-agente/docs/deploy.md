@@ -17,7 +17,7 @@ Abra http://localhost:8000, escolha `service_desk_agent` e teste os prompts do r
 ## 2. Infra
 
 ```bash
-cd infra && cp terraform.tfvars.example terraform.tfvars && terraform init && terraform apply
+cd infra && cp terraform.example.tfvars terraform.tfvars && terraform init && terraform apply
 ```
 
 ## 3. Deploy no Vertex AI Agent Engine

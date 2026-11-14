@@ -1,0 +1,43 @@
+# yaml-language-server: $schema=https://moonrepo.dev/schemas/tasks.json
+#
+# Tarefas herdadas por projetos JavaScript/TypeScript.
+# Delegam para os scripts do package.json do projeto (`--if-present`), então
+# cada projeto escolhe sua ferramenta (eslint, biome, vitest, tsc, vite...).
+# Se o projeto gerar artefatos, declare `outputs` no moon.yml dele.
+
+inheritedBy:
+  languages: ["javascript", "typescript"]
+
+tasks:
+  lint:
+    description: "Lint via script `lint` do package.json"
+    command: "npm run lint --if-present"
+    toolchains: ["system"]
+    inputs: ["@group(sources)", "@group(tests)", "@group(configs)"]
+
+  typecheck:
+    description: "Checagem de tipos via script `typecheck`"
+    command: "npm run typecheck --if-present"
+    toolchains: ["system"]
+    inputs: ["@group(sources)", "@group(tests)", "@group(configs)"]
+
+  test:
+    description: "Testes via script `test`"
+    command: "npm run test --if-present"
+    toolchains: ["system"]
+    inputs: ["@group(sources)", "@group(tests)", "@group(configs)"]
+
+  build:
+    description: "Build via script `build`"
+    command: "npm run build --if-present"
+    toolchains: ["system"]
+    inputs: ["@group(sources)", "@group(configs)"]
+
+  dev:
+    description: "Servidor de desenvolvimento (local)"
+    command: "npm run dev"
+    toolchains: ["system"]
+    options:
+      cache: false
+      persistent: true
+      runInCI: false

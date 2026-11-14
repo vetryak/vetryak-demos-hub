@@ -43,15 +43,21 @@ docs/                         # convenções do repositório
 .moon/                        # configuração do workspace e tarefas herdadas
 ```
 
+A configuração do moon vem do template [vetryak/moon-base](https://github.com/vetryak/moon-base)
+(versão em `.moon/moon-base.version`): `demos/<contexto>/<demo>` faz o papel de
+`slices/<dominio>/<feature>` e `shared/` o de `libs/`. O CI (`.github/workflows/moon-ci.yml`)
+roda `moon ci`, que executa só as tarefas das demos afetadas.
+
 Detalhes em [docs/convencoes.md](docs/convencoes.md).
 
 ## Começando
 
 Pré-requisitos: [proto](https://moonrepo.dev/proto) (ou moon instalado), `gcloud`,
-e conforme a demo, `terraform` e [`uv`](https://docs.astral.sh/uv/).
+e conforme a demo, `terraform`, `ruff`, `pytest` e [`uv`](https://docs.astral.sh/uv/)
+(as tarefas usam o toolchain `system`, ou seja, as ferramentas já instaladas).
 
 ```bash
-proto install                 # instala o moon na versão fixada em .prototools
+proto use                     # instala o moon na versão fixada em .prototools
 moon projects                 # lista as demos
 moon run :check-readme        # valida os roteiros
 moon check ge-05-analista-dados   # roda as tarefas de uma demo
@@ -69,7 +75,7 @@ O gerador pergunta contexto, id e título e cria a pasta a partir de
 ## Uso com agentes de IA
 
 As regras para agentes (Claude Code, Gemini CLI, Copilot, Cursor, Codex) ficam em
-[AGENTS.md](AGENTS.md). `CLAUDE.md`, `GEMINI.md` e `.github/copilot-instructions.md`
+[AGENTS.md](AGENTS.md). `CLAUDE.md`, `.gemini/settings.json` e `.github/copilot-instructions.md`
 apontam para ele, então há uma só fonte de verdade.
 
 ## Regras de ouro

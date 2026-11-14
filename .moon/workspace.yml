@@ -1,15 +1,29 @@
 # yaml-language-server: $schema=https://moonrepo.dev/schemas/workspace.json
-# Workspace do vetryak-demos-hub.
-# Cada demo é um projeto moon (uma "vertical slice") em demos/<contexto>/<demo>.
-# Os globs apontam para moon.yml para que pastas de contexto (só README) não virem projetos.
+#
+# Workspace do vetryak-demos-hub (moon v2), derivado do vetryak/moon-base
+# (versão em .moon/moon-base.version).
+#
+# Layout VSA adaptado para demos:
+#   demos/<contexto>/<demo>  -> equivalente a slices/<dominio>/<feature> do moon-base
+#   shared/*                 -> equivalente a libs/* (só com 2+ consumidores)
+# Só vira projeto moon a pasta que tiver um moon.yml (pastas de contexto só têm README).
+
+versionConstraint: ">=2.0.0"
+
 projects:
   - "demos/*/*/moon.yml"
   - "shared/*/moon.yml"
 
 vcs:
-  defaultBranch: "main"
+  client: "git"
   provider: "github"
+  defaultBranch: "main"
 
+pipeline:
+  autoCleanCache: true
+  cacheLifetime: "7 days"
+
+# `moon generate demo`
 generator:
   templates:
     - "./templates"

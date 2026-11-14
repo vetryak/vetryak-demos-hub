@@ -1,8 +1,20 @@
 # yaml-language-server: $schema=https://moonrepo.dev/schemas/project.json
 id: "{{ id }}"
+layer: "application"
 tags: ["{{ context }}"]
-# Adicione "terraform" se a demo tiver infra/ e "python" se tiver agent/.
+# Demo com infra/: adicione a tag "terraform" e o override de tf-validate abaixo.
+# Demo com agent/ em Python: adicione `language: "python"` e o fileGroups abaixo.
+# Referência: demos/gemini-enterprise/ge-03-service-desk-agente/moon.yml
 
 project:
   title: "{{ title }}"
   description: "TODO: uma frase sobre o que a demo mostra."
+  owner: "vetryak/arquitetura"
+
+# tasks:
+#   tf-validate:
+#     script: "terraform -chdir=infra init -backend=false -input=false >/dev/null && terraform -chdir=infra validate"
+#
+# fileGroups:
+#   sources:
+#     - "agent/**/*"

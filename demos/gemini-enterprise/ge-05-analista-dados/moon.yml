@@ -1,14 +1,31 @@
 # yaml-language-server: $schema=https://moonrepo.dev/schemas/project.json
 id: "ge-05-analista-dados"
 language: "python"
-tags: ["gemini-enterprise", "python", "terraform"]
+layer: "application"
+stack: "backend"
+tags: ["gemini-enterprise", "terraform"]
 
 project:
   title: "Analista de dados conversacional"
   description: "Agente ADK que responde perguntas de negócio em linguagem natural consultando o BigQuery, publicado no Gemini Enterprise."
+  owner: "vetryak/arquitetura"
 
 tasks:
+  # A infra da demo fica em infra/ (o tf-validate herdado roda na raiz do projeto).
+  tf-validate:
+    script: "terraform -chdir=infra init -backend=false -input=false >/dev/null && terraform -chdir=infra validate"
   dev:
     command: "uv run adk web agent"
     toolchains: ["system"]
     preset: "server"
+
+# O código do agente fica em agent/ (não em src/, padrão do moon-base).
+fileGroups:
+  sources:
+    - "agent/**/*"
+
+# Sem testes unitários por enquanto: o agente só monta o BigQueryToolset e exige ADC.
+# Validação é pelo roteiro (prompts com números conferidos).
+workspace:
+  inheritedTasks:
+    exclude: ["test"]

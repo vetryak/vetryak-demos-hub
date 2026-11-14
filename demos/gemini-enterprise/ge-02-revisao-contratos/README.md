@@ -33,7 +33,7 @@ flowchart LR
 
 ## Preparação (antes da reunião)
 
-1. `cd infra && cp terraform.tfvars.example terraform.tfvars && terraform init && terraform apply`
+1. `cd infra && cp terraform.example.tfvars terraform.tfvars && terraform init && terraform apply`
 2. No Gemini Enterprise, crie um data store do Cloud Storage com o bucket `docs_bucket`
    e ligue ao app.
 3. No **Agent Designer**, crie o agente com as instruções de

@@ -1,7 +1,15 @@
 # yaml-language-server: $schema=https://moonrepo.dev/schemas/project.json
 id: "ge-04-copiloto-comercial"
+layer: "application"
 tags: ["gemini-enterprise", "terraform"]
 
 project:
   title: "Copiloto comercial"
   description: "Prepara reuniões de vendas com brief de conta (CRM, e-mail, agenda) e gera rascunho de proposta."
+  owner: "vetryak/arquitetura"
+
+tasks:
+  # A infra da demo fica em infra/ (o tf-validate herdado roda na raiz do projeto).
+  tf-validate:
+    script: "terraform -chdir=infra init -backend=false -input=false >/dev/null && terraform -chdir=infra validate"
+

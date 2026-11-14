@@ -1,8 +1,31 @@
 # yaml-language-server: $schema=https://moonrepo.dev/schemas/tasks.json
-# Tarefas herdadas por todos os projetos do workspace.
+#
+# Herdado por TODOS os projetos. Mantenha aqui apenas o que vale para
+# qualquer linguagem: grupos de arquivos e opções padrão.
+
+fileGroups:
+  configs:
+    - "moon.yml"
+    - "*.{json,toml,yml,yaml}"
+  sources:
+    - "src/**/*"
+  tests:
+    - "tests/**/*"
+  docs:
+    - "README.md"
+    - "docs/**/*"
+  infra:
+    - "infra/**/*"
+    - "**/*.tf"
+
+taskOptions:
+  # Garante que o comando rode via shell (permite &&, pipes, variáveis).
+  shell: true
+
+# --- Específico do vetryak-demos-hub ---
 tasks:
   check-readme:
-    # Toda demo precisa de README com roteiro de apresentação.
-    script: "test -f README.md && grep -q '## Roteiro' README.md"
-    inputs: ["README.md"]
+    description: "Toda demo precisa de README com a seção '## Roteiro'"
+    script: "test -f README.md && grep -q '^## Roteiro' README.md"
     toolchains: ["system"]
+    inputs: ["README.md"]

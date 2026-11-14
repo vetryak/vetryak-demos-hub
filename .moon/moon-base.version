@@ -1,0 +1,4 @@
+source: https://github.com/vetryak/moon-base
+version: 17131c8
+applied: 2026-11-14T17:40:00Z
+notes: adaptado manualmente (layout demos/, tarefa check-readme, tf-validate com -chdir=infra nas demos)

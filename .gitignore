@@ -18,9 +18,8 @@ service-account*.json
 *.tfstate.*
 *.tfplan
 crash.log
-*.auto.tfvars
-terraform.tfvars
-!*.tfvars.example
+*.tfvars
+!*.example.tfvars
 
 # Python
 __pycache__/

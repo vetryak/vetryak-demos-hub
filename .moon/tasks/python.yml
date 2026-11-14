@@ -1,14 +1,34 @@
 # yaml-language-server: $schema=https://moonrepo.dev/schemas/tasks.json
-# Tarefas herdadas por projetos com a tag "python" (agentes ADK em agent/).
+#
+# Tarefas herdadas por projetos com `language: python`.
+# Ferramentas esperadas no PATH: ruff, pytest (ex.: `uv tool install ruff pytest`).
+
 inheritedBy:
-  tags: ["python"]
+  languages: ["python"]
 
 tasks:
   lint:
-    command: "uvx ruff check agent"
-    inputs: ["agent/**/*.py", "pyproject.toml"]
+    description: "Análise estática com ruff"
+    command: "ruff check ."
     toolchains: ["system"]
+    inputs: ["@group(sources)", "@group(tests)", "@group(configs)"]
+
   format-check:
-    command: "uvx ruff format --check agent"
-    inputs: ["agent/**/*.py"]
+    description: "Verifica formatação com ruff"
+    command: "ruff format --check ."
     toolchains: ["system"]
+    inputs: ["@group(sources)", "@group(tests)"]
+
+  format:
+    description: "Formata o código com ruff (local)"
+    command: "ruff format ."
+    toolchains: ["system"]
+    options:
+      cache: false
+      runInCI: false
+
+  test:
+    description: "Testes com pytest"
+    command: "pytest -q"
+    toolchains: ["system"]
+    inputs: ["@group(sources)", "@group(tests)", "@group(configs)"]

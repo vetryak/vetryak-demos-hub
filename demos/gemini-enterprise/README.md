@@ -37,7 +37,7 @@ As demos com `infra/` habilitam as APIs necessárias via Terraform:
 
 ```bash
 cd demos/gemini-enterprise/<demo>/infra
-cp terraform.tfvars.example terraform.tfvars   # preencha com o seu projeto de demo
+cp terraform.example.tfvars terraform.tfvars   # preencha com o seu projeto de demo
 terraform init && terraform apply
 ```
 

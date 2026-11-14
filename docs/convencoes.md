@@ -18,12 +18,16 @@ Cada demo é uma **fatia vertical**: roteiro, código, infraestrutura e dados fi
 | `id` no `moon.yml` | igual ao nome da pasta | `ge-03-service-desk-agente` |
 | Prefixos | `ge` Gemini Enterprise, `vx` Vertex AI, `da` Dados, `sec` Segurança, `net` Infra/Redes, `app` Modernização | |
 
-## Tags no `moon.yml`
+## Herança de tarefas no `moon.yml`
 
-As tags definem quais tarefas a demo herda de `.moon/tasks/`:
+Tags e linguagem definem quais tarefas a demo herda de `.moon/tasks/` (arquivos vindos do
+`vetryak/moon-base`):
 
-- `terraform`: a demo tem `infra/` → herda `tf-fmt` e `tf-validate`.
-- `python`: a demo tem `agent/` → herda `lint` e `format-check` (ruff via `uvx`).
+- tag `terraform`: a demo tem `infra/` → herda `tf-fmt` e `tf-validate` (sobrescreva o
+  `tf-validate` com `-chdir=infra`, como nas demos atuais).
+- `language: "python"` (não é tag): a demo tem `agent/` → herda `lint`, `format-check`,
+  `format` e `test` (ruff e pytest do sistema). Sobrescreva `fileGroups.sources` para
+  `agent/**/*`, como nas demos `ge-03` e `ge-05`.
 - Tag do contexto (ex.: `gemini-enterprise`) para filtrar: `moon run '#gemini-enterprise:check-readme'`.
 
 ## Estrutura do README da demo
@@ -42,6 +46,6 @@ Use [templates/demo/README.md](../templates/demo/README.md). Seções obrigatór
 ## Segurança
 
 - Variáveis sensíveis só em `.env` local (ignorado pelo git) a partir do `.env.example`.
-- Terraform: `terraform.tfvars` é ignorado; versione apenas `terraform.tfvars.example`.
+- Terraform: `terraform.tfvars` é ignorado; versione apenas `terraform.example.tfvars`.
 - Antes de abrir PR, rode `gitleaks detect --config .gitleaks.toml` se tiver instalado.
 - Projetos de demo devem ser **isolados** (projeto GCP dedicado), nunca ambiente de cliente.

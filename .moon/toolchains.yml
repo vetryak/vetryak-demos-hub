@@ -1,0 +1,16 @@
+# yaml-language-server: $schema=https://moonrepo.dev/schemas/toolchains.json
+#
+# Por padrão o template usa apenas o toolchain "system" (ferramentas já
+# instaladas na máquina/CI, com versões fixadas no .prototools).
+#
+# Motivo: toolchains do moon v2 são plugins WASM baixados de ghcr.io, que pode
+# estar bloqueado em ambientes corporativos/proxies. Habilite-os apenas no
+# repositório consumidor que precisar, por exemplo:
+#
+# node:
+#   version: "22.11.0"
+# javascript:
+#   packageManager: "npm"
+# python:
+#   version: "3.12.7"
+#   packageManager: "uv"

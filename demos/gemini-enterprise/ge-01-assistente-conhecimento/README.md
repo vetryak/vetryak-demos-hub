@@ -39,7 +39,7 @@ flowchart LR
 
 1. Suba a infraestrutura:
    ```bash
-   cd infra && cp terraform.tfvars.example terraform.tfvars  # preencha
+   cd infra && cp terraform.example.tfvars terraform.tfvars  # preencha
    terraform init && terraform apply
    ```
 2. No console do Gemini Enterprise, crie um app e adicione um **data store do Cloud

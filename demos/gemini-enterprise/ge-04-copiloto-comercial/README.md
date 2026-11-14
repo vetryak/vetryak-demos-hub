@@ -35,7 +35,7 @@ flowchart LR
 
 ## Preparação (antes da reunião)
 
-1. `cd infra && cp terraform.tfvars.example terraform.tfvars && terraform init && terraform apply`
+1. `cd infra && cp terraform.example.tfvars terraform.tfvars && terraform init && terraform apply`
 2. Crie um data store do Cloud Storage com o bucket `docs_bucket` e ligue ao app.
    (Opcional: conecte Salesforce e Gmail/Agenda de demonstração com dados equivalentes.)
 3. Se usar agenda real, crie um evento "Apresentação de proposta – Varejo Aurora" para

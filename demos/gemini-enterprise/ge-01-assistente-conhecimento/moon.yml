@@ -1,7 +1,15 @@
 # yaml-language-server: $schema=https://moonrepo.dev/schemas/project.json
 id: "ge-01-assistente-conhecimento"
+layer: "application"
 tags: ["gemini-enterprise", "terraform"]
 
 project:
   title: "Assistente de conhecimento corporativo"
   description: "Busca e chat unificados sobre Drive, SharePoint e Confluence com citações e respeito às permissões."
+  owner: "vetryak/arquitetura"
+
+tasks:
+  # A infra da demo fica em infra/ (o tf-validate herdado roda na raiz do projeto).
+  tf-validate:
+    script: "terraform -chdir=infra init -backend=false -input=false >/dev/null && terraform -chdir=infra validate"
+

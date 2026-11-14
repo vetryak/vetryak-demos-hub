@@ -2,7 +2,7 @@
 
 Este arquivo é a **fonte única de instruções** para qualquer agente de IA que trabalhe neste
 repositório (Claude Code, Gemini CLI, GitHub Copilot, Cursor, Codex e afins).
-`CLAUDE.md`, `GEMINI.md` e `.github/copilot-instructions.md` apenas apontam para cá.
+`CLAUDE.md`, `.gemini/settings.json` e `.github/copilot-instructions.md` apenas apontam para cá.
 Se precisar mudar uma regra, mude **aqui**.
 
 ## Contexto
@@ -23,7 +23,8 @@ demos/<contexto>/<demo>/   # um projeto moon por demo (vertical slice)
   README.md                # roteiro de apresentação (obrigatório, seção "## Roteiro")
   moon.yml                 # id, tags e tarefas da demo
   infra/                   # Terraform da demo (opcional, tag "terraform")
-  agent/                   # código de agente ADK/Python (opcional, tag "python")
+  agent/                   # código de agente ADK/Python (opcional, language: python)
+  tests/                   # testes pytest (demos Python)
   data/                    # dados de exemplo FICTÍCIOS
   docs/                    # arquitetura, prompts, FAQ/objeções
 shared/<pacote>/           # código realmente compartilhado (só quando 2+ demos usam)
@@ -39,7 +40,7 @@ Contextos atuais em `demos/`: `gemini-enterprise`, `vertex-ai`, `dados-analytics
 
 1. **Sem segredos.** Nunca versione chaves, tokens, senhas, service account JSON, `.env`,
    `terraform.tfvars` ou IDs reais de projeto/organização/billing. Use `.env.example` e
-   `*.tfvars.example` com placeholders (`<PROJECT_ID>`, `<REGION>`).
+   `*.example.tfvars` com placeholders (`<PROJECT_ID>`, `<REGION>`).
 2. **Sem dados de clientes.** Dados em `data/` são sempre fictícios ou de datasets públicos.
    Nada de nome de cliente real em demo genérica; personalização por cliente fica fora deste repo.
 3. **Fatia autocontida.** Uma demo não importa arquivos de outra demo. Se algo se repete em
@@ -54,24 +55,34 @@ Contextos atuais em `demos/`: `gemini-enterprise`, `vertex-ai`, `dados-analytics
 ## Comandos
 
 ```bash
-proto install                      # instala a versão do moon fixada
+proto use                          # instala a versão do moon fixada
 moon projects                      # lista as demos (projetos)
 moon tasks                         # lista tarefas
 moon run :check-readme             # valida o README de todas as demos
 moon check <id-da-demo>            # roda todas as tarefas de uma demo
+moon ci                            # roda só o que foi afetado (igual ao CI)
 moon generate demo                 # cria uma nova demo a partir do template
 ```
 
-Tarefas herdadas por tag (ver `.moon/tasks/`):
+Tarefas herdadas (ver `.moon/tasks/`, vindas do moon-base; não renomeie):
 
-| Tag         | Tarefas                      | Requer                    |
-|-------------|------------------------------|---------------------------|
-| (todas)     | `check-readme`               | shell                     |
-| `terraform` | `tf-fmt`, `tf-validate`      | `terraform` no PATH       |
-| `python`    | `lint`, `format-check`       | `uv` no PATH (usa `uvx`)  |
+| Herdado por              | Tarefas                                  | Requer no PATH     |
+|--------------------------|------------------------------------------|--------------------|
+| todos                    | `check-readme`                           | shell              |
+| tag `terraform`          | `tf-fmt`, `tf-validate`                  | `terraform`        |
+| `language: python`       | `lint`, `format-check`, `format`, `test` | `ruff`, `pytest`   |
+| `language: typescript`   | `lint`, `typecheck`, `test`, `build`     | `npm`              |
+| tag `container`          | `image-build`                            | `docker`           |
+
+Nas demos, `tf-validate` é sobrescrito no `moon.yml` para rodar em `infra/`, e o código
+Python fica em `agent/` (o `fileGroups.sources` é sobrescrito). Demo Python sem testes
+exclui `test` com `workspace.inheritedTasks.exclude`.
 
 ## Como trabalhar aqui (para agentes)
 
+- A configuração do moon segue o template `vetryak/moon-base` (moon v2: `layer`, não
+  `type`; `vcs.client`; `inheritedBy`; toolchain `system`). Mudança de convenção geral
+  deve ir para o moon-base primeiro.
 - Antes de editar uma demo, leia o `README.md` dela e o `moon.yml`.
 - Para criar uma demo: `moon generate demo` (ou copie `templates/demo/`), depois ajuste
   `moon.yml` (`id` único, prefixo do contexto, ex.: `ge-06-...`) e preencha o roteiro.

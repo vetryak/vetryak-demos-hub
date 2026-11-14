@@ -6,7 +6,7 @@
 ## 1. Infra
 
 ```bash
-cd infra && cp terraform.tfvars.example terraform.tfvars && terraform init && terraform apply
+cd infra && cp terraform.example.tfvars terraform.tfvars && terraform init && terraform apply
 ```
 
 Anote o output `agent_service_account`.

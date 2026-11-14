@@ -11,7 +11,8 @@
 
    Sem moon? Copie `templates/demo/` para a pasta nova e troque os `{{ ... }}` à mão.
 
-2. Ajuste `moon.yml`: adicione a tag `terraform` se tiver `infra/` e `python` se tiver `agent/`.
+2. Ajuste `moon.yml`: adicione a tag `terraform` se tiver `infra/` (e o override de
+   `tf-validate`) e `language: "python"` se tiver `agent/`. Use `ge-03` como referência.
 3. Preencha o `README.md` (principalmente `## Roteiro` e `## Limpeza`).
 4. Adicione a demo na tabela do `README.md` do contexto e do `README.md` da raiz.
 5. Valide:
