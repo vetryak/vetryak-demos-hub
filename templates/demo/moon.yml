@@ -1,0 +1,8 @@
+# yaml-language-server: $schema=https://moonrepo.dev/schemas/project.json
+id: "{{ id }}"
+tags: ["{{ context }}"]
+# Adicione "terraform" se a demo tiver infra/ e "python" se tiver agent/.
+
+project:
+  title: "{{ title }}"
+  description: "TODO: uma frase sobre o que a demo mostra."

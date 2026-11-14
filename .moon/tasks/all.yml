@@ -1,0 +1,8 @@
+# yaml-language-server: $schema=https://moonrepo.dev/schemas/tasks.json
+# Tarefas herdadas por todos os projetos do workspace.
+tasks:
+  check-readme:
+    # Toda demo precisa de README com roteiro de apresentação.
+    script: "test -f README.md && grep -q '## Roteiro' README.md"
+    inputs: ["README.md"]
+    toolchains: ["system"]

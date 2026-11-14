@@ -1,0 +1,8 @@
+# Configuração do gitleaks (varredura de segredos).
+# Uso local: gitleaks detect --source . --config .gitleaks.toml
+[extend]
+useDefault = true
+
+[allowlist]
+description = "Arquivos de exemplo sem valores reais"
+paths = ['''\.env\.example$''', '''\.tfvars\.example$''']

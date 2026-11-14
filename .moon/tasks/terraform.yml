@@ -1,0 +1,15 @@
+# yaml-language-server: $schema=https://moonrepo.dev/schemas/tasks.json
+# Tarefas herdadas por projetos com a tag "terraform" (pasta infra/).
+inheritedBy:
+  tags: ["terraform"]
+
+tasks:
+  tf-fmt:
+    command: "terraform fmt -check -recursive infra"
+    inputs: ["infra/**/*.tf"]
+    toolchains: ["system"]
+  tf-validate:
+    script: "terraform -chdir=infra init -backend=false -input=false >/dev/null && terraform -chdir=infra validate"
+    inputs: ["infra/**/*.tf"]
+    toolchains: ["system"]
+    deps: ["~:tf-fmt"]

@@ -1,0 +1,7 @@
+# yaml-language-server: $schema=https://moonrepo.dev/schemas/project.json
+id: "ge-04-copiloto-comercial"
+tags: ["gemini-enterprise", "terraform"]
+
+project:
+  title: "Copiloto comercial"
+  description: "Prepara reuniões de vendas com brief de conta (CRM, e-mail, agenda) e gera rascunho de proposta."

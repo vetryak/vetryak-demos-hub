@@ -1,0 +1,14 @@
+# yaml-language-server: $schema=https://moonrepo.dev/schemas/project.json
+id: "ge-05-analista-dados"
+language: "python"
+tags: ["gemini-enterprise", "python", "terraform"]
+
+project:
+  title: "Analista de dados conversacional"
+  description: "Agente ADK que responde perguntas de negócio em linguagem natural consultando o BigQuery, publicado no Gemini Enterprise."
+
+tasks:
+  dev:
+    command: "uv run adk web agent"
+    toolchains: ["system"]
+    preset: "server"

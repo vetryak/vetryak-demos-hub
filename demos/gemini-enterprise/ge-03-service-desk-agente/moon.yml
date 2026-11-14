@@ -1,0 +1,15 @@
+# yaml-language-server: $schema=https://moonrepo.dev/schemas/project.json
+id: "ge-03-service-desk-agente"
+language: "python"
+tags: ["gemini-enterprise", "python", "terraform"]
+
+project:
+  title: "Agente de service desk com ações"
+  description: "Agente ADK no Vertex AI Agent Engine, publicado no Gemini Enterprise, que consulta e abre chamados."
+
+tasks:
+  dev:
+    # Interface local do ADK para testar o agente (http://localhost:8000).
+    command: "uv run adk web agent"
+    toolchains: ["system"]
+    preset: "server"

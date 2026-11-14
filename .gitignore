@@ -1,0 +1,39 @@
+# moon
+.moon/cache/
+.moon/docker/
+
+# Segredos e credenciais: NUNCA versionar
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*-sa.json
+*credentials*.json
+service-account*.json
+
+# Terraform
+**/.terraform/
+*.tfstate
+*.tfstate.*
+*.tfplan
+crash.log
+*.auto.tfvars
+terraform.tfvars
+!*.tfvars.example
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+.ruff_cache/
+.pytest_cache/
+
+# Node
+node_modules/
+
+# SO / editores
+.DS_Store
+.idea/
+.vscode/*
+!.vscode/extensions.json

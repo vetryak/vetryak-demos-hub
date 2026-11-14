@@ -1,0 +1,3 @@
+# Versões fixas das ferramentas (https://moonrepo.dev/proto).
+# `proto install` instala tudo; o moon também respeita este arquivo.
+moon = "2.6.5"
