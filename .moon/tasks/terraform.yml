@@ -1,0 +1,21 @@
+# yaml-language-server: $schema=https://moonrepo.dev/schemas/tasks.json
+#
+# Tarefas herdadas por projetos com a tag `terraform`
+# (ex.: infra/* ou a pasta infra de uma slice com moon.yml próprio).
+# Não executa plan/apply: isso fica para pipelines com credenciais (OIDC/WIF).
+
+inheritedBy:
+  tags: ["terraform"]
+
+tasks:
+  tf-fmt:
+    description: "Verifica formatação do Terraform"
+    command: "terraform fmt -check -recursive"
+    toolchains: ["system"]
+    inputs: ["**/*.tf", "**/*.tfvars"]
+
+  tf-validate:
+    description: "Valida o Terraform sem backend"
+    script: "terraform init -backend=false -input=false >/dev/null && terraform validate"
+    toolchains: ["system"]
+    inputs: ["**/*.tf"]

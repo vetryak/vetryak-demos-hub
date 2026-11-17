@@ -1,0 +1,15 @@
+# yaml-language-server: $schema=https://moonrepo.dev/schemas/project.json
+id: "ge-02-revisao-contratos"
+layer: "application"
+tags: ["gemini-enterprise", "terraform"]
+
+project:
+  title: "Revisão de contratos e compliance"
+  description: "Agente sem código (Agent Designer) que revisa contratos contra o playbook jurídico e aponta riscos."
+  owner: "vetryak/arquitetura"
+
+tasks:
+  # A infra da demo fica em infra/ (o tf-validate herdado roda na raiz do projeto).
+  tf-validate:
+    script: "terraform -chdir=infra init -backend=false -input=false >/dev/null && terraform -chdir=infra validate"
+

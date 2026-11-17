@@ -1,0 +1,38 @@
+# CI base com moon (vindo do vetryak/moon-base): roda só as tarefas das demos afetadas.
+name: moon-ci
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: moon-ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # moon precisa do histórico para calcular projetos afetados
+
+      - uses: moonrepo/setup-toolchain@v0
+        with:
+          auto-install: true
+
+      # Ferramentas do toolchain "system" usadas pelas tarefas herdadas.
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install ruff pytest
+
+      - uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_wrapper: false
+
+      - run: moon ci

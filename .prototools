@@ -1,0 +1,8 @@
+# Versões fixadas das ferramentas (gerenciadas pelo proto: https://moonrepo.dev/proto)
+# Instale tudo com: proto use
+moon = "2.6.5"
+
+# Ferramentas usadas pelas demos (toolchain "system"); descomente para o proto gerenciar:
+# python = "3.12.7"
+# uv = "0.5.4"
+# terraform = "1.9.8"

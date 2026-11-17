@@ -1,0 +1,24 @@
+# yaml-language-server: $schema=https://moonrepo.dev/schemas/template.json
+title: "Demo"
+description: "Cria uma nova demo (vertical slice) em demos/<contexto>/<id>."
+destination: "demos/[context]/[id]"
+
+variables:
+  context:
+    type: "string"
+    default: "gemini-enterprise"
+    required: true
+    prompt: "Contexto (pasta em demos/)"
+    order: 1
+  id:
+    type: "string"
+    default: ""
+    required: true
+    prompt: "ID da demo (ex.: ge-06-minha-demo)"
+    order: 2
+  title:
+    type: "string"
+    default: ""
+    required: true
+    prompt: "Título da demo"
+    order: 3

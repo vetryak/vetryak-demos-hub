@@ -1,0 +1,26 @@
+# yaml-language-server: $schema=https://moonrepo.dev/schemas/project.json
+id: "ge-03-service-desk-agente"
+language: "python"
+layer: "application"
+stack: "backend"
+tags: ["gemini-enterprise", "terraform"]
+
+project:
+  title: "Agente de service desk com ações"
+  description: "Agente ADK no Vertex AI Agent Engine, publicado no Gemini Enterprise, que consulta e abre chamados."
+  owner: "vetryak/arquitetura"
+
+tasks:
+  # A infra da demo fica em infra/ (o tf-validate herdado roda na raiz do projeto).
+  tf-validate:
+    script: "terraform -chdir=infra init -backend=false -input=false >/dev/null && terraform -chdir=infra validate"
+  dev:
+    # Interface local do ADK para testar o agente (http://localhost:8000).
+    command: "uv run adk web agent"
+    toolchains: ["system"]
+    preset: "server"
+
+# O código do agente fica em agent/ (não em src/, padrão do moon-base).
+fileGroups:
+  sources:
+    - "agent/**/*"

@@ -1,0 +1,18 @@
+[project]
+name = "ge-03-service-desk-agente"
+version = "0.1.0"
+description = "Demo Vetryak: agente de service desk (ADK) para o Gemini Enterprise"
+requires-python = ">=3.11"
+dependencies = [
+  "google-adk>=2.14",
+]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

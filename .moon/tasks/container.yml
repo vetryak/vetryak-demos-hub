@@ -1,0 +1,17 @@
+# yaml-language-server: $schema=https://moonrepo.dev/schemas/tasks.json
+#
+# Tarefas herdadas por projetos com a tag `container` (possuem Dockerfile).
+# Publicação em Artifact Registry / deploy em Cloud Run ficam no CI.
+
+inheritedBy:
+  tags: ["container"]
+
+tasks:
+  image-build:
+    description: "Build local da imagem do projeto"
+    command: "docker build -t $project:local ."
+    toolchains: ["system"]
+    inputs: ["Dockerfile", ".dockerignore", "@group(sources)", "@group(configs)"]
+    options:
+      cache: false
+      runInCI: false
